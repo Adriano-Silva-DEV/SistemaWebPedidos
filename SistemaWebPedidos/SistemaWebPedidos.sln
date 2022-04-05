@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaWebPedidos.Core", "SistemaWebPedidos.Core\SistemaWebPedidos.Core.csproj", "{39732BA3-B961-4FB4-A128-1AF47D3AF547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaWebPedidos.Infrastructure", "SistemaWebPedidos.Infrastructure\SistemaWebPedidos.Infrastructure.csproj", "{79633C4A-6076-4801-A269-8ABC7E31CD3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaWebPedidos.Infrastructure", "SistemaWebPedidos.Infrastructure\SistemaWebPedidos.Infrastructure.csproj", "{79633C4A-6076-4801-A269-8ABC7E31CD3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaWebPedidos.Application", "SistemaWebPedidos.Application\SistemaWebPedidos.Application.csproj", "{E6CCDB51-BECA-4B37-B8A6-D5527D2A1FE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaWebPedidos.Application", "SistemaWebPedidos.Application\SistemaWebPedidos.Application.csproj", "{E6CCDB51-BECA-4B37-B8A6-D5527D2A1FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaWebPedido.Api", "SistemaWebPedido.Api\SistemaWebPedido.Api.csproj", "{E357498D-A94E-4F8E-810B-465CA2B094C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaWebPedidos.Api", "SistemaWebPedido.Api\SistemaWebPedidos.Api.csproj", "{E357498D-A94E-4F8E-810B-465CA2B094C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
