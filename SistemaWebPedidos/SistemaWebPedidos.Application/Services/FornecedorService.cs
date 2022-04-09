@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SistemaWebPedidos.Application.Interfaces;
 using SistemaWebPedidos.Application.ViewModels;
 using SistemaWebPedidos.Core.Entities;
+using SistemaWebPedidos.Core.Interfaces.Repositories;
 using SistemaWebPedidos.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
@@ -14,22 +15,21 @@ namespace SistemaWebPedidos.Application.Services
 {
     public class FornecedorService : IFornecedorService
     {
-        private readonly ApiDbContext _apiDbContext;
+        private readonly IFornecedorRepository  _fornecedorRepository;
 
         private readonly IMapper _mapper;
 
-        public FornecedorService(ApiDbContext apiDbContext, IMapper mapper)
+        public FornecedorService(IFornecedorRepository produtoRepository, IMapper mapper)
         {
-            this._apiDbContext = apiDbContext;
+            this._fornecedorRepository = produtoRepository;
             this._mapper = mapper;
         }
 
         public async Task Inserir(FornecedorViewModel fornecedorViewModel)
         {
             var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
-           _apiDbContext.Add(fornecedor);
+           await _fornecedorRepository.Adcionar(fornecedor);
 
-            await _apiDbContext.SaveChangesAsync();
 
         }
 
@@ -40,7 +40,7 @@ namespace SistemaWebPedidos.Application.Services
 
         public async Task<IEnumerable<FornecedorViewModel>> ListarTodos()
         {
-            return _mapper.Map<IEnumerable<FornecedorViewModel>>( await _apiDbContext.Fornecedores.ToListAsync());
+            return _mapper.Map<IEnumerable<FornecedorViewModel>>( await _fornecedorRepository.ObterTodos());
         }
 
         public Task<FornecedorViewModel> Salvar(FornecedorViewModel fornecedorViewModel)

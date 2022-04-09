@@ -6,7 +6,7 @@ namespace SistemaWebPedidos.Infrastructure.Persistence
 {
     public class ApiDbContext : DbContext
     {
-        public ApiDbContext(DbContextOptions options) : base(options)
+        public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         { }
         
         public DbSet<Fornecedor> Fornecedores { get; set; }

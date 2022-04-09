@@ -6,9 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using SistemaWebPedidos.Api.Configurations;
 using SistemaWebPedidos.Application.Interfaces;
 using SistemaWebPedidos.Application.Services;
+using SistemaWebPedidos.Core.Interfaces.Repositories;
 using SistemaWebPedidos.Infrastructure.Persistence;
+using SistemaWebPedidos.Infrastructure.Persistence.Repository;
 
 namespace SistemaWebPedido.Api
 {
@@ -26,9 +29,12 @@ namespace SistemaWebPedido.Api
         {
             services.AddScoped<ApiDbContext>();
             services.AddScoped<IFornecedorService, FornecedorService>();
-           
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddAutoMapper(typeof(Startup));
-          
+
+            services.AddIdentityConfiguration(Configuration);
+
             services.AddDbContext<ApiDbContext>(options =>
             {
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -57,6 +63,8 @@ namespace SistemaWebPedido.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

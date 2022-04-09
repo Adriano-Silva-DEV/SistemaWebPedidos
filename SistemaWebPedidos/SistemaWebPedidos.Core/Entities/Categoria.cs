@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Core.Entities
 {
-    public class Categoria
+    public class Categoria : Entity
     {
-
-       public Guid Id { get; set; }
 
         public string Nome { get; set; }
 

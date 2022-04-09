@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaWebPedidos.Application.Interfaces;
 using SistemaWebPedidos.Application.Services;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Api.Controllers
 {    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FornecedorController : ControllerBase
@@ -21,7 +23,7 @@ namespace SistemaWebPedidos.Api.Controllers
             _mapper = mapper;
         }
        
-        [Route("fornecedor/novo")]
+        [Route("/novo")]
         [HttpPost]
         public async Task<IActionResult> Criar([FromBody] FornecedorViewModel fornecedorViewModel)
         {
