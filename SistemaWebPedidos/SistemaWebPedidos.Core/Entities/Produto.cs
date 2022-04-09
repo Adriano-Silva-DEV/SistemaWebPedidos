@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Core.Entities
 {
-    public class Produto
+    public class Produto : Entity
     {
-        public Guid Id { get; set; }
 
         public string Nome { get; set; }
 
@@ -24,7 +23,7 @@ namespace SistemaWebPedidos.Core.Entities
 
         public decimal PrecoPromocional { get; set; }
 
-        public List<String> imagens { get; set; }
+        public List<String> Imagens { get; set; }
 
         public String Sku { get; set; }
 

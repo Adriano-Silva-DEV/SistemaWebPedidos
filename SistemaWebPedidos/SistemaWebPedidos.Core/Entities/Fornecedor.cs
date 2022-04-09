@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Core.Entities
 {
-    public class Fornecedor
+    public class Fornecedor : Entity
     {
 
-       
-        public Guid Id { get; set; }
 
         public string Nome { get; set; }
 

@@ -10,12 +10,12 @@ namespace SistemaWebPedidos.Application.ViewModels
 {
     public class FornecedorViewModel
     {
-        
-        [Key]
+
+
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = " O campo {0} é obrigadotorio ")]
-        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres"),  MinLength(2)]
+        [StringLength(150, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres"),  MinLength(2)]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = " O campo {0} é obrigadotorio ")]

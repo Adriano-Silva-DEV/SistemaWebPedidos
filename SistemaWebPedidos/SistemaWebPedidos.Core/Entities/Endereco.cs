@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Core.Entities
 {
-    public class Endereco
+    public class Endereco : Entity
     {
-        public Guid Id { get; set; }
 
         public string Numero { get; set; }
 
