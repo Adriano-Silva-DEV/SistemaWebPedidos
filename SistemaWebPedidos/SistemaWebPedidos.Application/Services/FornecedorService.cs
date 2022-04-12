@@ -25,17 +25,9 @@ namespace SistemaWebPedidos.Application.Services
             this._mapper = mapper;
         }
 
-        public async Task Inserir(FornecedorViewModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> BuscarPorId(Guid id)
         {
-            var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
-           await _fornecedorRepository.Adcionar(fornecedor);
-
-
-        }
-
-        public Task<FornecedorViewModel> BuscarPorId(Guid id)
-        {
-            throw new NotImplementedException();
+            return  _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterPorId(id));
         }
 
         public async Task<IEnumerable<FornecedorViewModel>> ListarTodos()
@@ -43,9 +35,32 @@ namespace SistemaWebPedidos.Application.Services
             return _mapper.Map<IEnumerable<FornecedorViewModel>>( await _fornecedorRepository.ObterTodos());
         }
 
-        public Task<FornecedorViewModel> Salvar(FornecedorViewModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> Salvar(FornecedorViewModel fornecedorViewModel)
         {
-            throw new NotImplementedException();
+            var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
+            return _mapper.Map<FornecedorViewModel>( await _fornecedorRepository.Adcionar(fornecedor));
+           
+        }
+
+        public async Task<FornecedorViewModel> Atualizar(FornecedorViewModel fornecedorViewModel)
+        {
+            var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
+            await _fornecedorRepository.Atualizar(fornecedor);
+            return fornecedorViewModel;
+        }
+
+        public async Task Remover(FornecedorViewModel fornecedorViewModel)
+        {
+            await _fornecedorRepository.Remover(fornecedorViewModel.Id);
+        }
+
+        public async Task<FornecedorViewModel> obterPorDocumento(string documento)
+        {
+            Fornecedor fornecedor = await _fornecedorRepository.obterPorDocumento(documento);
+
+            if (fornecedor is null) return null;
+
+           return _mapper.Map<FornecedorViewModel>(fornecedor);
         }
     }
 }

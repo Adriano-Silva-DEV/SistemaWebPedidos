@@ -12,9 +12,10 @@ namespace SistemaWebPedidos.Application.Interfaces
     {
         public  Task<FornecedorViewModel> BuscarPorId(Guid id);
         public  Task<FornecedorViewModel> Salvar(FornecedorViewModel fornecedorViewModel);
+        public Task<FornecedorViewModel> Atualizar(FornecedorViewModel fornecedorViewModel);
         public Task<IEnumerable<FornecedorViewModel>> ListarTodos();
-
-        public Task Inserir(FornecedorViewModel fornecedorViewModel);
+        public Task Remover(FornecedorViewModel fornecedorViewModel);
+        Task<FornecedorViewModel> obterPorDocumento(string documento);
 
     }
 }
