@@ -23,11 +23,11 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
             this.DbSet = apiDbContext.Set<TEntity>();
 
         }
-        public virtual async Task Adcionar(TEntity entity)
+        public virtual async Task<TEntity> Adcionar(TEntity entity)
         {
             DbSet.Add(entity);
-            await SaveChange();
-
+          await SaveChange();
+            return entity;
         }
 
         public virtual async Task Atualizar(TEntity entity)

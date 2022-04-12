@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using SistemaWebPedidos.Api.Configurations;
+using SistemaWebPedidos.Api.Extensions;
 using SistemaWebPedidos.Application.Interfaces;
+using SistemaWebPedidos.Application.Notificacoes;
 using SistemaWebPedidos.Application.Services;
 using SistemaWebPedidos.Core.Interfaces.Repositories;
 using SistemaWebPedidos.Infrastructure.Persistence;
@@ -32,7 +34,9 @@ namespace SistemaWebPedido.Api
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddAutoMapper(typeof(Startup));
-
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IUser, AspNetUser>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddIdentityConfiguration(Configuration);
 
             services.AddDbContext<ApiDbContext>(options =>
@@ -62,9 +66,9 @@ namespace SistemaWebPedido.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

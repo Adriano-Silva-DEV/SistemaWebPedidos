@@ -11,12 +11,11 @@ namespace SistemaWebPedidos.Core.Interfaces.Repositories
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
 
-        public Task Adcionar(TEntity entity);
+        public Task<TEntity> Adcionar(TEntity entity);
 
         public Task<TEntity> ObterPorId(Guid id);
 
         public Task<List<TEntity>> ObterTodos();
-
 
         public Task Atualizar(TEntity entity);
 

@@ -9,5 +9,7 @@ namespace SistemaWebPedidos.Core.Interfaces.Repositories
 {
     public interface IFornecedorRepository : IRepository<Fornecedor>
     {
+
+        Task<Fornecedor> obterPorDocumento(string documento);
     }
 }

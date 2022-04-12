@@ -1,4 +1,5 @@
-﻿using SistemaWebPedidos.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaWebPedidos.Core.Entities;
 using SistemaWebPedidos.Core.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,11 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
          public FornecedorRepository(ApiDbContext apiDbContext) : base(apiDbContext)
         {
 
+        }
+
+        public async Task<Fornecedor> obterPorDocumento(string documento)
+        {
+            return await _apiDbContext.Fornecedores.AsNoTracking().FirstOrDefaultAsync(f => f.Documento == documento);
         }
     }
 }
