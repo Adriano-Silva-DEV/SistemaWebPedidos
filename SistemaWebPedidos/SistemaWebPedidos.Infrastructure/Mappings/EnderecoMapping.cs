@@ -30,8 +30,6 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
                .WithOne(f => f.Endereco);
              
                
-           
-
             builder.ToTable("ENDERECOS");
             }
         }

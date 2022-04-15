@@ -11,7 +11,6 @@ namespace SistemaWebPedidos.Application.ViewModels
     public class FornecedorViewModel
     {
 
-
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = " O campo {0} é obrigadotorio ")]
@@ -23,7 +22,6 @@ namespace SistemaWebPedidos.Application.ViewModels
         public string Documento { get; set; }
 
         public int TipoFornecedor   { get; set; }   
-
 
         public bool Ativo { get; set; }
 
