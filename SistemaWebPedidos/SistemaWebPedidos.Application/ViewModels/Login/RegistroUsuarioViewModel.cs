@@ -21,18 +21,7 @@ namespace SistemaWebPedidos.Application.ViewModels.Login
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(40, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 3)]
-        public string Nome { get; set; }
+        public UsuarioViewModel Usuario { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 4)]
-        public string Sobrenome { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(20, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 10)]
-        public string Telefone { get; set; }
-
-        public EnderecoViewModel endereco { get; set; }
     }
 }

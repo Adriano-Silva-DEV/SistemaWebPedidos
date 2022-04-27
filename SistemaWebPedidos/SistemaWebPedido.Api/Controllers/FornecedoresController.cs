@@ -101,6 +101,7 @@ namespace SistemaWebPedidos.Api.Controllers
 
         [ClaimsAuthorize("Fornecedor", "Listar")]
         [Route("{id:guid}")]
+        [HttpGet]
         public async Task<IActionResult> ObterPorId(Guid id)
         {
             var fornecedorViewModel = await _fornecedorService.BuscarPorId(id);
@@ -112,6 +113,7 @@ namespace SistemaWebPedidos.Api.Controllers
 
         [ClaimsAuthorize("Fornecedor", "Remover")]
         [Route("remover/{id:guid}")]
+        [HttpDelete]
         public async Task<IActionResult> Remover(Guid id)
         {
             var fornecedorViewModel = await _fornecedorService.BuscarPorId(id);

@@ -19,9 +19,9 @@ namespace SistemaWebPedidos.Application.Services
 
         private readonly IMapper _mapper;
 
-        public FornecedorService(IFornecedorRepository produtoRepository, IMapper mapper)
+        public FornecedorService(IFornecedorRepository fornecedorRepository, IMapper mapper)
         {
-            this._fornecedorRepository = produtoRepository;
+            this._fornecedorRepository = fornecedorRepository;
             this._mapper = mapper;
         }
 

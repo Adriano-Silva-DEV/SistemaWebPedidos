@@ -13,7 +13,10 @@ namespace SistemaWebPedidos.Api.AutoMapper
     {
         public AutoMapperConfig()
         {
-            CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();    
+            CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
+            CreateMap<Produto, ProdutoViewModel>().ReverseMap();
+            CreateMap<Sobre, SobreViewModel>().ReverseMap();
+            CreateMap<Categoria, CategoriaViewModel>().ReverseMap();
         }
     }
 }

@@ -16,16 +16,16 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
 
         }
 
-        public async Task<Produto> ObterProdutoFornecedor(Guid id)
+        public async Task<Produto> ObterPorSku(string sku)
         {
-            return await _apiDbContext.Produtos.AsNoTracking().Include(d => d.Fornecedor)
-                 .FirstOrDefaultAsync(prop => prop.Id == id);
+            return await _apiDbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(f => f.Sku == sku);
         }
 
-        public async Task<IEnumerable<Produto>> ObterProdutosFornecedor()
+        public async Task<IEnumerable<Produto>> ObterComCategoria()
         {
-            return await _apiDbContext.Produtos.AsNoTracking()
-               .OrderBy(p => p.Sku).ToListAsync();
+            return await _apiDbContext.Produtos.AsNoTracking().Include(p => p.Categoria).Include(f => f.Fornecedor).ToListAsync();
         }
     }
+   
 }
+

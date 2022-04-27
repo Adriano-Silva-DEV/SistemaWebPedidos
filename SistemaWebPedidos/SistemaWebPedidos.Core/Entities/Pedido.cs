@@ -18,6 +18,8 @@ namespace SistemaWebPedidos.Core.Entities
 
         public Guid EnderecoEntregaId { get; set; }
 
+        public Endereco EnderecoEntrega { get; set; }
+
         public String Status { get; set; }
 
     }

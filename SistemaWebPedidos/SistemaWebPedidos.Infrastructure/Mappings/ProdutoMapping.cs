@@ -24,7 +24,6 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
                 .HasColumnType("varchar(2000)");
 
             builder.Property(p => p.Url)
-                .IsRequired()
                 .HasColumnType("varchar(200)");
 
             builder.ToTable("PRODUTOS");

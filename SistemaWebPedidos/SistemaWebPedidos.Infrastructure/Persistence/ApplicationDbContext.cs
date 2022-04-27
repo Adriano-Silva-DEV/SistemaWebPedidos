@@ -12,5 +12,8 @@ namespace SistemaWebPedidos.Infrastructure.Persistence
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
+
+
+
     }
 }

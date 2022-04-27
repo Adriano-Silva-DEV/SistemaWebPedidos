@@ -9,6 +9,12 @@ namespace SistemaWebPedidos.Infrastructure.Persistence
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         { }
         
+        public DbSet<Pedido> Pedidos { get; set; }
+
+        public DbSet<ItemPedido> ItensPedidos { get; set;}
+
+        public DbSet<Sobre> Sobre { get; set; }
+
         public DbSet<Fornecedor> Fornecedores { get; set; }
 
         public DbSet<Produto> Produtos { get; set; }
@@ -26,6 +32,7 @@ namespace SistemaWebPedidos.Infrastructure.Persistence
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             base.OnModelCreating(modelBuilder);
+
         }
 
     }

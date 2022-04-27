@@ -9,7 +9,6 @@ namespace SistemaWebPedidos.Core.Entities
 {
     public class Fornecedor : Entity
     {
-
         public string Nome { get; set; }
 
         public string Documento { get; set; }

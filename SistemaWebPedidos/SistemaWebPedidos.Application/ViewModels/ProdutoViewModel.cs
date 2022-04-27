@@ -1,17 +1,23 @@
-﻿using System;
+﻿using SistemaWebPedidos.Infrastructure.Persistence;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaWebPedidos.Core.Entities
+namespace SistemaWebPedidos.Application.ViewModels
 {
-    public class Produto : Entity
+    public class ProdutoViewModel
     {
 
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = " O campo {0} é obrigadotorio ")]
+        [StringLength(150, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres"), MinLength(3)]
         public string Nome { get; set; }
 
-        public Categoria Categoria { get; set; }
+        public CategoriaViewModel Categoria { get; set; }
 
         public Guid CategoriaId { get; set; }
 
@@ -39,8 +45,9 @@ namespace SistemaWebPedidos.Core.Entities
 
         public bool Ativo { get; set; }
 
-        public Fornecedor Fornecedor { get; set; }
+        public FornecedorViewModel Fornecedor { get; set; }
 
         public Guid FornecedorId { get; set; }
+
     }
 }

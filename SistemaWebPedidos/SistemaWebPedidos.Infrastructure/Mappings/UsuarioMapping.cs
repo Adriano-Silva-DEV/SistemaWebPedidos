@@ -14,10 +14,6 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            builder.Property(p => p.Email)
-                .IsRequired()
-                .HasColumnType("varchar(2000)");
-
             builder.HasOne(p => p.Endereco)
                 .WithOne(f => f.Usuario);
 

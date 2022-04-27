@@ -13,8 +13,6 @@ namespace SistemaWebPedidos.Core.Entities
         public int Quantidade { get; set; }
 
         public decimal ValorSemDesconto { get; set; }
-        public decimal ValorTotal { get; set; }
-
-        
+        public decimal ValorTotal { get; set; }   
     }
 }

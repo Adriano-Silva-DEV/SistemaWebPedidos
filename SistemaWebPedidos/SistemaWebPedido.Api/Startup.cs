@@ -14,6 +14,7 @@ using SistemaWebPedidos.Application.Services;
 using SistemaWebPedidos.Core.Interfaces.Repositories;
 using SistemaWebPedidos.Infrastructure.Persistence;
 using SistemaWebPedidos.Infrastructure.Persistence.Repository;
+using System.Text.Json.Serialization;
 
 namespace SistemaWebPedido.Api
 {
@@ -32,12 +33,18 @@ namespace SistemaWebPedido.Api
             services.AddScoped<ApiDbContext>();
             services.AddScoped<IFornecedorService, FornecedorService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ISobreRepository, SobreRepository>();
+            services.AddScoped<ISobreService, SobreService>();       
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IUser, AspNetUser>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddIdentityConfiguration(Configuration);
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddControllers().AddJsonOptions(x =>
+              x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             services.AddDbContext<ApiDbContext>(options =>
             {
@@ -50,17 +57,32 @@ namespace SistemaWebPedido.Api
             {       
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaWebPedido.Api", Version = "v1" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Development",
+                    builder =>
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+                }
+                );
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaWebPedido.Api v1"));
             }
+
+            app.UseCors("Development"); 
 
             app.UseHttpsRedirection();
 
