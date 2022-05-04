@@ -96,7 +96,9 @@ namespace SistemaWebPedido.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaWebPedido.Api v1"));
             }
 
-            app.UseCors("Development");
+          //  app.UseCors("Development");
+
+            app.UseCors("Production");
 
             app.UseHttpsRedirection();
 
