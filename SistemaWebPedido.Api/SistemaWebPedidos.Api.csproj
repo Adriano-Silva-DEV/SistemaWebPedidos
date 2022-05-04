@@ -4,16 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="NovaPasta\**" />
-    <Content Remove="NovaPasta\**" />
-    <EmbeddedResource Remove="NovaPasta\**" />
-    <None Remove="NovaPasta\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="WeatherForecast.cs" />
-  </ItemGroup>
+ 
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
@@ -46,10 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaWebPedidos.Application\SistemaWebPedidos.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NovaPasta1\" />
   </ItemGroup>
 
 </Project>
