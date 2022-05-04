@@ -58,7 +58,8 @@ namespace SistemaWebPedido.Api
             {
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            });   
+
 
             services.AddControllers(ops => ops.UseDateOnlyTimeOnlyStringConverters())
             .AddJsonOptions(ops => ops.UseDateOnlyTimeOnlyStringConverters());
