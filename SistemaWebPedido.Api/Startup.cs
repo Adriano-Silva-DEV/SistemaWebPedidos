@@ -35,18 +35,18 @@ namespace SistemaWebPedido.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ApiDbContext>();
-            services.AddScoped<IFornecedorService, FornecedorService>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IProdutoService, ProdutoService>();
-            services.AddScoped<ICategoriaService, CategoriaService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<ISobreRepository, SobreRepository>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<ISobreService, SobreService>();       
-            services.AddScoped<INotificador, Notificador>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IFornecedorService,FornecedorService>();
+            services.AddScoped<IProdutoRepository,ProdutoRepository>();
+            services.AddScoped<IProdutoService,ProdutoService>();
+            services.AddScoped<ICategoriaService,CategoriaService>();
+            services.AddScoped<IUsuarioService,UsuarioService>();
+            services.AddScoped<IFornecedorRepository,FornecedorRepository>();
+            services.AddScoped<ICategoriaRepository,CategoriaRepository>();
+            services.AddScoped<ISobreRepository,SobreRepository>();
+            services.AddScoped<IUsuarioRepository,UsuarioRepository>();
+            services.AddScoped<ISobreService,SobreService>();
+            services.AddScoped<INotificador,Notificador>();
+            services.AddScoped<IUser,AspNetUser>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddIdentityConfiguration(Configuration);
             services.AddAutoMapper(typeof(Startup));
@@ -60,14 +60,14 @@ namespace SistemaWebPedido.Api
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-           services.AddControllers(opções => opções.UseDateOnlyTimeOnlyStringConverters())
-           .AddJsonOptions(opções => opções.UseDateOnlyTimeOnlyStringConverters());
+            services.AddControllers(opções => opções.UseDateOnlyTimeOnlyStringConverters())
+            .AddJsonOptions(opções => opções.UseDateOnlyTimeOnlyStringConverters());
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
-            {       
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaWebPedido.Api", Version = "v1" });
             });
 
@@ -79,7 +79,7 @@ namespace SistemaWebPedido.Api
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
-                }
+            }
                 );
         }
 
@@ -95,7 +95,7 @@ namespace SistemaWebPedido.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaWebPedido.Api v1"));
             }
 
-            app.UseCors("Development"); 
+            app.UseCors("Development");
 
             app.UseHttpsRedirection();
 
@@ -104,7 +104,7 @@ namespace SistemaWebPedido.Api
             app.UseAuthentication();
 
             app.UseStaticFiles();
-       
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
