@@ -60,8 +60,8 @@ namespace SistemaWebPedido.Api
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddControllers(opções => opções.UseDateOnlyTimeOnlyStringConverters())
-            .AddJsonOptions(opções => opções.UseDateOnlyTimeOnlyStringConverters());
+            services.AddControllers(ops => ops.UseDateOnlyTimeOnlyStringConverters())
+            .AddJsonOptions(ops => ops.UseDateOnlyTimeOnlyStringConverters());
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
