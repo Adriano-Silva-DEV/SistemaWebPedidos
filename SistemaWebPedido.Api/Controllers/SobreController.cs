@@ -31,7 +31,8 @@ namespace SistemaWebPedidos.Api.Controllers
         {
             try
             {
-                return CustomResponse( await _sobreService.Listar());
+                 var returnr = await _sobreService.Listar();
+                return  CustomResponse(returnr);
             }
             catch
             {

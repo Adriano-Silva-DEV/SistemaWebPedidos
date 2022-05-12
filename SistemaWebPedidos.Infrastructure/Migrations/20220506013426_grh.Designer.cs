@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SistemaWebPedidos.Infrastructure.Persistence;
@@ -11,9 +12,10 @@ using SistemaWebPedidos.Infrastructure.Persistence;
 namespace SistemaWebPedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220506013426_grh")]
+    partial class grh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,12 +226,6 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Bairro")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Cidade")
-                        .HasColumnType("varchar(30)");
-
                     b.Property<string>("Cnpj")
                         .HasColumnType("varchar(300)");
 
@@ -248,8 +244,8 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Estado")
-                        .HasColumnType("varchar(30)");
+                    b.Property<Guid?>("EnderecoId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("HorarioAbertura")
                         .HasColumnType("text");
@@ -260,26 +256,22 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("NomeEstabelecimento")
                         .HasColumnType("text");
 
-                    b.Property<string>("Numero")
-                        .HasColumnType("text");
-
                     b.Property<bool>("PessoaFisica")
                         .HasColumnType("boolean");
 
                     b.Property<string>("RazaoSocial")
                         .HasColumnType("text");
 
-                    b.Property<string>("Rua")
-                        .HasColumnType("varchar(200)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId");
 
                     b.ToTable("SOBRE", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9b7efdf9-af85-46a2-a608-5f17644dcfb2"),
+                            Id = new Guid("e34a22d0-5437-4ef4-8c7b-99ffacd272b7"),
                             Descricao = "Escreve aqui a Descrição",
                             NomeEstabelecimento = "Nome do Estabelecimento",
                             PessoaFisica = false
@@ -354,6 +346,15 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Navigation("Categoria");
 
                     b.Navigation("Fornecedor");
+                });
+
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Sobre", b =>
+                {
+                    b.HasOne("SistemaWebPedidos.Core.Entities.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId");
+
+                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Usuario", b =>

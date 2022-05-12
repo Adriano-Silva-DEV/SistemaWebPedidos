@@ -26,9 +26,9 @@ namespace SistemaWebPedidos.Application.ViewModels
         public string NomeEstabelecimento { get; set; }
 
         
-        public TimeOnly HorarioAbertura { get; set; }
+        public String HorarioAbertura { get; set; }
 
-        public TimeOnly HorarioFechamento { get; set; }
+        public String HorarioFechamento { get; set; }
 
         public String Descricao { get; set; }
 
@@ -40,6 +40,21 @@ namespace SistemaWebPedidos.Application.ViewModels
 
         public EnderecoViewModel Endereco { get; set; }
 
+      
+        [StringLength(5, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 1)]
+        public string Numero { get; set; }
+
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string Rua { get; set; }
+
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string Bairro { get; set; }
+
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string Cidade { get; set; }
+
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string Estado { get; set; }
 
 
     }

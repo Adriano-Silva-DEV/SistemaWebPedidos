@@ -25,7 +25,7 @@ namespace SistemaWebPedidos.Api.Controllers
             _mapper = mapper;
         }
 
-        [ClaimsAuthorize("Fornecedor", "Listar")]
+        [AllowAnonymous]
         [Route("")]
         [HttpGet]
         public async Task<IActionResult> listar()

@@ -21,6 +21,18 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
                
             builder.ToTable("SOBRE");
 
+            builder.Property(p => p.Rua)
+                   .HasColumnType("varchar(200)");
+
+            builder.Property(p => p.Cidade)
+                .HasColumnType("varchar(30)");
+
+            builder.Property(p => p.Bairro)
+                .HasColumnType("varchar(50)");
+
+            builder.Property(p => p.Estado)
+                .HasColumnType("varchar(30)");
+
             builder.HasData(
                 new Sobre
                 {

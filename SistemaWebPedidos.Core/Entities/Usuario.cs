@@ -12,11 +12,11 @@ namespace SistemaWebPedidos.Core.Entities
         public Guid Id { get; set; }
 
         public Guid IdIdentity { get; set; }
-        public string Nome { get; set; }
+        public String Nome { get; set; }
 
-        public string Sobrenome { get; set; }
+        public String Sobrenome { get; set; }
 
-        public string Telefone { get; set; }
+        public String Telefone { get; set; }
 
         public Endereco Endereco { get; set; }  
 
