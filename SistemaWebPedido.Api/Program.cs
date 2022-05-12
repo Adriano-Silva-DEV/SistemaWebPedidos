@@ -22,5 +22,7 @@ namespace SistemaWebPedido.Api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
     }
 }
