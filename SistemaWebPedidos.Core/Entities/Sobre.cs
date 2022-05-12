@@ -11,17 +11,17 @@ namespace SistemaWebPedidos.Core.Entities
 
         public bool PessoaFisica { get; set; }
 
-        public string Cnpj { get; set; }
+        public String Cnpj { get; set; }
 
-        public string RazaoSocial { get; set; }
+        public String RazaoSocial { get; set; }
 
-        public string Cpf { get; set; }
+        public String Cpf { get; set; }
 
-        public string NomeEstabelecimento { get; set; }
+        public String NomeEstabelecimento { get; set; }
 
-        public TimeOnly HorarioAbertura  { get; set; }
+        public String HorarioAbertura  { get; set; }
 
-        public TimeOnly HorarioFechamento { get; set; }
+        public String HorarioFechamento { get; set; }
 
         public String Descricao { get; set; }
 
@@ -31,8 +31,15 @@ namespace SistemaWebPedidos.Core.Entities
 
         public String Email { get; set; }
 
-        public Endereco Endereco { get; set; }
+        public string Numero { get; set; }
 
+        public string Rua { get; set; }
+
+        public string Bairro { get; set; }
+
+        public string Cidade { get; set; }
+
+        public string Estado { get; set; }
 
     }
 }

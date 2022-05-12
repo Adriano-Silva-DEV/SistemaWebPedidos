@@ -31,7 +31,8 @@ namespace SistemaWebPedidos.Api.Controllers
         {
             try
             {
-                return CustomResponse( await _sobreService.Listar());
+                 var returnr = await _sobreService.Listar();
+                return  CustomResponse(returnr);
             }
             catch
             {
@@ -42,8 +43,8 @@ namespace SistemaWebPedidos.Api.Controllers
 
         [ClaimsAuthorize("Produto", "Salvar")]
         [Route("salvar")]
-        [HttpGet]
-        public async Task<IActionResult> Salvar(SobreViewModel sobreViewModel )
+        [HttpPut]
+        public async Task<IActionResult> Salvar([FromBody] SobreViewModel sobreViewModel )
         {
             if (!ModelState.IsValid || sobreViewModel is null) return CustomResponse(ModelState);
 
