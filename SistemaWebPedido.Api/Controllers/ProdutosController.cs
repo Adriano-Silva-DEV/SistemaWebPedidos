@@ -131,6 +131,18 @@ namespace SistemaWebPedidos.Api.Controllers
         }
 
         [AllowAnonymous]
+        [Route("busca/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> Busca(string id)
+        {
+            var produtoViewModel = await _produtoService.Buscar(id);
+
+            if (produtoViewModel is null) return NotFound();
+
+            return CustomResponse(produtoViewModel);
+        }
+
+        [AllowAnonymous]
         [Route("{id:guid}/fornecedor")]
         [HttpGet]
         public async Task<IActionResult> ObterPorFornecedor(Guid id)

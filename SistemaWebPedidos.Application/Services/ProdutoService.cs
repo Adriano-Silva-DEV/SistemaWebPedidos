@@ -29,7 +29,10 @@ namespace SistemaWebPedidos.Application.Services
         {
             return  _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorIdComCategoriaEFornecedor(id));
         }
-
+        public async Task<IEnumerable<ProdutoViewModel>> Buscar(string id)
+        {
+            return _mapper.Map<List<ProdutoViewModel>>(await _produtoRepository.Busca(id));
+        }
         public async Task<List<ProdutoViewModel>> ObterPorFornecedor(Guid id)
         {
             return _mapper.Map<List<ProdutoViewModel>>(await _produtoRepository.ObterPorFornecedor(id));

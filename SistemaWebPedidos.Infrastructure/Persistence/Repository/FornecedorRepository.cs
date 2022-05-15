@@ -15,7 +15,6 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
         {
 
         }
-
         public async Task<Fornecedor> obterPorDocumento(string documento)
         {
             return await _apiDbContext.Fornecedores.AsNoTracking().FirstOrDefaultAsync(f => f.Documento == documento);

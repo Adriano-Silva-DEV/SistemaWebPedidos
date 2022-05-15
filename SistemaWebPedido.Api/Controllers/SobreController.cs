@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaWebPedidos.Application.Extensions;
 using SistemaWebPedidos.Application.Interfaces;
 using SistemaWebPedidos.Application.ViewModels;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Api.Controllers
@@ -48,6 +50,15 @@ namespace SistemaWebPedidos.Api.Controllers
         {
             if (!ModelState.IsValid || sobreViewModel is null) return CustomResponse(ModelState);
 
+
+            var imagemNome = Guid.NewGuid() + "_" + sobreViewModel.Imagem1;
+            if (!UploadArquivo(sobreViewModel.ImagemUpload, imagemNome))
+            {
+                return CustomResponse(sobreViewModel);
+            }
+
+            sobreViewModel.Imagem1 = imagemNome;
+
             try
             {
                 var sobre = await _sobreService.Listar();
@@ -66,6 +77,29 @@ namespace SistemaWebPedidos.Api.Controllers
                 NotificarErro("Ops! Ocorreu um erro");
                 return CustomResponse();
             }
+        }
+
+        private bool UploadArquivo(string arquivo, string imgNome)
+        {
+            if (string.IsNullOrEmpty(arquivo))
+            {
+                NotificarErro("Forneça uma imagem para este produto!");
+                return false;
+            }
+
+            var imageDataByteArray = Convert.FromBase64String(arquivo);
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgs", imgNome);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                NotificarErro("Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            System.IO.File.WriteAllBytes(filePath, imageDataByteArray);
+
+            return true;
         }
     }
 }

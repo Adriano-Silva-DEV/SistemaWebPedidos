@@ -29,8 +29,6 @@ namespace SistemaWebPedidos.Application.ViewModels
 
         public decimal PrecoPromocional { get; set; }
 
-        public string Imagem1 { get; set; }
-
         public string Imagem2 { get; set; }
 
         public string Imagem3 { get; set; }
@@ -52,6 +50,8 @@ namespace SistemaWebPedidos.Application.ViewModels
         public DateTime dataCadastro { get; set; }
 
         public string ImagemUpload { get; set; }
+
+        public string Imagem1 { get; set; }
 
     }
 }

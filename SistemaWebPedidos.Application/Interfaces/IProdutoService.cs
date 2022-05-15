@@ -11,6 +11,8 @@ namespace SistemaWebPedidos.Application.Interfaces
     public interface IProdutoService
     {
         public  Task<ProdutoViewModel> BuscarPorId(Guid id);
+
+        public Task<IEnumerable<ProdutoViewModel>> Buscar(string id);
         public  Task<ProdutoViewModel> Salvar(ProdutoViewModel produtoViewModel);
         public Task<ProdutoViewModel> Atualizar(ProdutoViewModel produtViewModel);
         public Task<IEnumerable<ProdutoViewModel>> ListarTodos();

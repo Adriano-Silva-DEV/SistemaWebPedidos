@@ -31,6 +31,12 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
             return await _apiDbContext.Produtos.AsNoTracking().Include(p => p.Categoria).Include(f => f.Fornecedor).FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<IEnumerable<Produto>> Busca(string id)
+        {
+            return await _apiDbContext.Produtos.AsNoTracking().Include(p => p.Categoria).Include(f => f.Fornecedor).Where(p => p.Nome.ToUpper().Contains(id.ToUpper())
+            || p.Descricao.ToUpper().Contains(id.ToUpper())).ToListAsync();
+        }
+
         public async Task<IEnumerable<Produto>> ObterPorFornecedor(Guid id)
         {
             return await _apiDbContext.Produtos.AsNoTracking().Include(p => p.Categoria).Include(f => f.Fornecedor).Where(p => p.FornecedorId == id).ToListAsync();

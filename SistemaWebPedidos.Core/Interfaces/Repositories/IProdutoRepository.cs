@@ -13,6 +13,7 @@ namespace SistemaWebPedidos.Core.Interfaces.Repositories
         Task<IEnumerable<Produto>> ObterComCategoria();
         Task<IEnumerable<Produto>> obterPorCategoria(Guid categoria);
         Task<Produto> ObterPorIdComCategoriaEFornecedor(Guid id);
+        Task<IEnumerable<Produto>> Busca(string id);
         Task<IEnumerable<Produto>> ObterPorFornecedor(Guid id);
 
         Task<IEnumerable<Produto>> ObterPorCategoria(Guid id);
