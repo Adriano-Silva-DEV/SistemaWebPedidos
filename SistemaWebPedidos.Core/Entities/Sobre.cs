@@ -41,5 +41,7 @@ namespace SistemaWebPedidos.Core.Entities
 
         public string Estado { get; set; }
 
+        public string Imagem1 { get; set; }
+
     }
 }

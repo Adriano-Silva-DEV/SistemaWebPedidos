@@ -35,18 +35,21 @@ namespace SistemaWebPedido.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ApiDbContext>();
-            services.AddScoped<IFornecedorService,FornecedorService>();
-            services.AddScoped<IProdutoRepository,ProdutoRepository>();
-            services.AddScoped<IProdutoService,ProdutoService>();
-            services.AddScoped<ICategoriaService,CategoriaService>();
-            services.AddScoped<IUsuarioService,UsuarioService>();
-            services.AddScoped<IFornecedorRepository,FornecedorRepository>();
-            services.AddScoped<ICategoriaRepository,CategoriaRepository>();
-            services.AddScoped<ISobreRepository,SobreRepository>();
-            services.AddScoped<IUsuarioRepository,UsuarioRepository>();
-            services.AddScoped<ISobreService,SobreService>();
-            services.AddScoped<INotificador,Notificador>();
-            services.AddScoped<IUser,AspNetUser>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+           
+            services.AddScoped<IEnderecoService, EnderecoService>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<ISobreRepository, SobreRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ISobreService, SobreService>();       
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IUser, AspNetUser>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddIdentityConfiguration(Configuration);
             services.AddAutoMapper(typeof(Startup));

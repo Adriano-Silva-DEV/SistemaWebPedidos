@@ -55,6 +55,7 @@ namespace SistemaWebPedidos.Api.Controllers
                var usuarioRegistro = await _userManager.FindByEmailAsync(registroUsuario.Email);
                 
                 registroUsuario.Usuario.IdIdentity = new Guid (usuarioRegistro.Id);
+                registroUsuario.Usuario.endereco.Id = new Guid(usuarioRegistro.Id);
 
                 await _usuarioService.Salvar(registroUsuario.Usuario);
 

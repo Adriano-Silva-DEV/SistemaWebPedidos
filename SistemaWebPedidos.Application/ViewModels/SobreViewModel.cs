@@ -38,6 +38,10 @@ namespace SistemaWebPedidos.Application.ViewModels
 
         public String Email { get; set; }
 
+        public string ImagemUpload { get; set; }
+
+        public string Imagem1 { get; set; }
+
         public EnderecoViewModel Endereco { get; set; }
 
       
