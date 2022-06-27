@@ -36,8 +36,11 @@ namespace SistemaWebPedido.Api
         {
             services.AddScoped<ApiDbContext>();
             services.AddScoped<IFornecedorService, FornecedorService>();
+           
+            services.AddScoped<IEnderecoService, EnderecoService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<ICategoriaService, CategoriaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();

@@ -83,7 +83,7 @@ namespace SistemaWebPedidos.Api.Controllers
         {
             if (string.IsNullOrEmpty(arquivo))
             {
-                NotificarErro("Forneça uma imagem para este produto!");
+                NotificarErro("Forneça uma imagem!");
                 return false;
             }
 
