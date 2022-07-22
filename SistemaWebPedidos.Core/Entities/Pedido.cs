@@ -20,7 +20,16 @@ namespace SistemaWebPedidos.Core.Entities
 
         public Endereco EnderecoEntrega { get; set; }
 
-        public String Status { get; set; }
+        public String? Status { get; set; }
 
+        public MeioPagamento MeioPagamento { get; set;}
+
+        public Guid MeioPagamentoId { get; set; }
+
+        public double? Troco { get; set; }
+
+        public int QuantidadeParcela { get; set; }
+
+        public int NumeroPedido { get; set; }
     }
 }

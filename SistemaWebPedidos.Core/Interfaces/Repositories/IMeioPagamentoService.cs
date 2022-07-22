@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Core.Interfaces.Repositories
 {
-    public interface IItemPedidoRepository : IRepository<ItemPedido>
+    public interface IMeioPagamentoService : IRepository<MeioPagamento>
     {
-
-        Task<List<ItemPedido>> ObterPorIdPedido(Guid id);
     }
 }

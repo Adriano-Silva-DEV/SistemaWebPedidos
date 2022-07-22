@@ -10,13 +10,13 @@ namespace SistemaWebPedidos.Core.Interfaces.Repositories
     public interface IProdutoRepository : IRepository<Produto>
     {
         Task<Produto> ObterPorSku(String sku);
-        Task<IEnumerable<Produto>> ObterComCategoria();
+        Task<IEnumerable<Produto>> ObterComCategoria(int skip, int take);
         Task<IEnumerable<Produto>> obterPorCategoria(Guid categoria);
         Task<Produto> ObterPorIdComCategoriaEFornecedor(Guid id);
         Task<IEnumerable<Produto>> Busca(string id);
         Task<IEnumerable<Produto>> ObterPorFornecedor(Guid id);
-
         Task<IEnumerable<Produto>> ObterPorCategoria(Guid id);
+        Task<int> TotalPedidos();
 
 
     }

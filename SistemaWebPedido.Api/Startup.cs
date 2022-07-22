@@ -39,6 +39,13 @@ namespace SistemaWebPedido.Api
            
             services.AddScoped<IEnderecoService, EnderecoService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+            services.AddScoped<SistemaWebPedidos.Application.Interfaces.IMeioPagamentoService, MeioPagamentoService>();
+            services.AddScoped<SistemaWebPedidos.Core.Interfaces.Repositories.IMeioPagamentoService, MeioPagamentoRepository>();
+
+            services.AddScoped<IPedidoService, PedidoService>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+
             services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<ICategoriaService, CategoriaService>();
@@ -99,7 +106,7 @@ namespace SistemaWebPedido.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaWebPedido.Api v1"));
             }
 
-          //  app.UseCors("Development");
+            app.UseCors("Development");
 
             app.UseCors("Production");
 

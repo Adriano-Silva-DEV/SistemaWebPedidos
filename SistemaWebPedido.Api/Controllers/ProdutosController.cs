@@ -28,12 +28,19 @@ namespace SistemaWebPedidos.Api.Controllers
         [AllowAnonymous]
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> listar()
+        public async Task<IActionResult> listar([FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
 
             try
             {
-                return CustomResponse(await _produtoService.ListarTodos());
+                double total = await _produtoService.TotalPedidos();
+
+                var pagination = new Pagination(skip, take, (int)Math.Ceiling(total / take));
+
+                var produtos = await _produtoService.ListarTodos(skip, take);
+                    produtos.ForEach(p => p.Pagination = pagination);
+
+                return CustomResponse(produtos);
             }
             catch
             {
@@ -61,14 +68,6 @@ namespace SistemaWebPedidos.Api.Controllers
 
             try
             {
-                //  var produto = await _produtoService.ObterPorSku(produtoViewModel.Sku);
-                //  if (produto is not null)
-                //  {
-                //      NotificarErro("Ops! Já existe um  produto com este Sku");
-                //      return CustomResponse();
-                //  }
-
-
                 var resultSave = await _produtoService.Salvar(produtoViewModel);
 
                 return CustomResponse(resultSave);

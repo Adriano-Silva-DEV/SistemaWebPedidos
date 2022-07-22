@@ -43,10 +43,10 @@ namespace SistemaWebPedidos.Application.Services
             return _mapper.Map<List<ProdutoViewModel>>(await _produtoRepository.ObterPorCategoria(id));
         }
 
-        public async Task<IEnumerable<ProdutoViewModel>> ListarTodos()
+        public async Task<List<ProdutoViewModel>> ListarTodos(int skip, int take)
         {
-            var produto = await _produtoRepository.ObterComCategoria();
-            return _mapper.Map<IEnumerable<ProdutoViewModel>>(produto);
+            var produto = await _produtoRepository.ObterComCategoria(skip, take);
+            return _mapper.Map<List<ProdutoViewModel>>(produto);
         }
 
         public async Task<ProdutoViewModel> Salvar(ProdutoViewModel produtoViewModel)
@@ -67,12 +67,20 @@ namespace SistemaWebPedidos.Application.Services
 
         public async Task Remover(ProdutoViewModel produtoViewModel)
         {
-            await _produtoRepository.Remover(produtoViewModel.Id);
+           var produto = await _produtoRepository.ObterPorId(produtoViewModel.Id);
+            produto.Excluido = true;
+
+            await _produtoRepository.Atualizar(produto);
         }
 
         public async Task<ProdutoViewModel> ObterPorSku(string sku)
         {
             return _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorSku(sku));
+        }
+
+        public async Task<int> TotalPedidos()
+        {
+           return await _produtoRepository.TotalPedidos();
         }
     }
 }

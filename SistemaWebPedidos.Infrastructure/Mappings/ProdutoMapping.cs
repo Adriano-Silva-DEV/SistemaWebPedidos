@@ -29,6 +29,7 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
             builder.HasOne(p => p.Categoria)
                .WithMany(f => f.Produtos);
 
+
             builder.ToTable("PRODUTOS");
         }
     }

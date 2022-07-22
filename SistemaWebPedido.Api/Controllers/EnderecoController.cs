@@ -45,5 +45,23 @@ namespace SistemaWebPedidos.Api.Controllers
         }
 
 
+        [Authorize]
+        [HttpPost]
+        [Route("editar")]
+        public async Task<IActionResult> ObterPorId([FromBody] EnderecoViewModel endereco)
+        {
+
+            try
+            {
+                var enderecoEditado = await _enderecoService.Editar(endereco, _appUser.GetUserId());
+                return CustomResponse(enderecoEditado);
+            }
+            catch
+            {
+                NotificarErro("Ops! Ocorreu um erro");
+                return CustomResponse();
+            }
+        }
+
     }
 }

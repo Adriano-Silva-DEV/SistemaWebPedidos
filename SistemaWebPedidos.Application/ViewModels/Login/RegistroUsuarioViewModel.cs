@@ -18,6 +18,8 @@ namespace SistemaWebPedidos.Application.ViewModels.Login
         [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
         public string Password { get; set; }
 
+        public string PasswordOld { get; set; }
+
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
 

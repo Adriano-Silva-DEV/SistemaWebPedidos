@@ -19,6 +19,10 @@ namespace SistemaWebPedidos.Api.AutoMapper
             CreateMap<Categoria, CategoriaViewModel>().ReverseMap();
             CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
             CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
+            CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
+            CreateMap<MeioPagamento, MeioPagamentoViewModel>().ReverseMap();
+            CreateMap<Pedido, PedidoViewModel>().ReverseMap();
+            CreateMap<ItemPedido, ItemPedidoViewModel>().ReverseMap();
         }
     }
 }

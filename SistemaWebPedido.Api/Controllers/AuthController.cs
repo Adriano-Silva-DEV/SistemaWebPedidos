@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,6 +23,7 @@ namespace SistemaWebPedidos.Api.Controllers
         private readonly IUsuarioService _usuarioService;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        
     
 
         public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager,
@@ -45,7 +47,7 @@ namespace SistemaWebPedidos.Api.Controllers
                 Email = registroUsuario.Email,
                 EmailConfirmed = true,
             };
-
+           
             var result = await _userManager.CreateAsync(user, registroUsuario.Password);
 
             if (result.Succeeded)
@@ -66,6 +68,48 @@ namespace SistemaWebPedidos.Api.Controllers
                 NotificarErro(error.Description);
             }
             return CustomResponse(registroUsuario);
+        }
+
+        [HttpPut("alterar-dados-usuario")]
+        public async Task<ActionResult> AlterarUsuario(RegistroUsuarioViewModel registroUsuario)
+        {
+            if (!ModelState.IsValid)
+                return CustomResponse(ModelState);
+            try
+            {
+
+                var user = await _userManager.FindByIdAsync(_appUser.GetUserId().ToString());
+
+ 
+                var result = await _userManager.ChangePasswordAsync(user, registroUsuario.PasswordOld, registroUsuario.Password) ;
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        NotificarErro(error.Description);
+                    }
+                    return CustomResponse();
+                }
+
+                user.Email = registroUsuario.Email;
+                user.UserName = registroUsuario.Email;
+                await _userManager.UpdateAsync(user); ;
+
+
+                var dadosUsuario = await _usuarioService.ObterPorIdIdentity(_appUser.GetUserId());
+                dadosUsuario.Telefone = registroUsuario.Usuario.Telefone;
+                dadosUsuario.Nome = registroUsuario.Usuario.Nome;
+                dadosUsuario.Sobrenome = registroUsuario.Usuario.Sobrenome;
+
+                await _usuarioService.Atualizar(dadosUsuario);
+                return CustomResponse(await GerarJsonTokenAsync(user.Email));
+            } catch (Exception ex)
+            {
+                NotificarErro(ex.Message);
+                return CustomResponse();
+            }
+         
         }
 
         [HttpPost("entrar")]
@@ -90,6 +134,30 @@ namespace SistemaWebPedidos.Api.Controllers
             NotificarErro("Usuário ou senha incorretos, tente novamente");
             return CustomResponse(loginUsuario);
 
+        }
+
+        [Authorize]
+        [HttpGet("dados-usuario")]
+        public async Task<IActionResult> GetDadosUsuario()
+        {
+
+            try
+            {
+                var usuarioViewModel = new RegistroUsuarioViewModel
+                {
+                    Email = _appUser.GetUserEmail(),
+                    Usuario = await _usuarioService.ObterPorIdIdentity(_appUser.GetUserId())
+                };
+
+                return CustomResponse(usuarioViewModel);
+            }
+            catch (Exception ex)
+            {
+                NotificarErro("Ops! Ocorreu um erro");
+                NotificarErro(ex.Message);
+                return CustomResponse();
+            }
+       
         }
 
         private async Task<LoginResponseViewModel> GerarJsonTokenAsync(string email)

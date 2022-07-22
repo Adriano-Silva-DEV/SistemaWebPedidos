@@ -44,5 +44,10 @@ namespace SistemaWebPedidos.Core.Entities
         public Guid FornecedorId { get; set; }
 
         public DateTime dataCadastro { get; set; }
+
+        public List<ItemPedido> ItemPedido { get; set; }
+        public bool Excluido { get; set; }
+
+        public int QuantidadeDisponivel { get; set; }
     }
 }

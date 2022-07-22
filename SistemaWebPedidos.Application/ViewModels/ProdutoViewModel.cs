@@ -53,5 +53,12 @@ namespace SistemaWebPedidos.Application.ViewModels
 
         public string Imagem1 { get; set; }
 
+        public List<ItemPedidoViewModel> ItemPedido { get; set; }
+
+        public Pagination Pagination { get; set; }
+
+        public bool Excluido { get; set; }
+
+        public int QuantidadeDisponivel { get; set; }
     }
 }

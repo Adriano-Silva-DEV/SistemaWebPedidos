@@ -1,4 +1,5 @@
 ﻿using SistemaWebPedidos.Application.ViewModels;
+using SistemaWebPedidos.Application.ViewModels;
 using SistemaWebPedidos.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace SistemaWebPedidos.Application.Interfaces
 {
-    public interface IEnderecoService
+    public interface IMeioPagamentoService
     {
-
-       Task<EnderecoViewModel> ObterPorId(Guid id);
-
-        Task<EnderecoViewModel> Editar(EnderecoViewModel endereco, Guid id);
+        public Task<IEnumerable<MeioPagamentoViewModel>> ListarTodos();
 
     }
 }

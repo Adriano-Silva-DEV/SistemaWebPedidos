@@ -9,7 +9,6 @@ namespace SistemaWebPedidos.Core.Entities
     public class Usuario : Entity
     {
 
-
         public Guid IdIdentity { get; set; }
         public String Nome { get; set; }
 

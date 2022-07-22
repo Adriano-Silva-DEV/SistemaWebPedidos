@@ -10,9 +10,13 @@ namespace SistemaWebPedidos.Core.Entities
     {
         public Produto Produto { get; set; }
 
-        public int Quantidade { get; set; }
+        public Guid ProdutoId { get; set; }
 
+        public int Quantidade { get; set; }
         public decimal ValorSemDesconto { get; set; }
-        public decimal ValorTotal { get; set; }   
+        public decimal ValorTotal { get; set; }  
+        public Pedido Pedido { get; set; }  
+
+        public Guid PedidoId   { get; set; }
     }
 }

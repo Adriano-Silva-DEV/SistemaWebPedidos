@@ -10,15 +10,16 @@ namespace SistemaWebPedidos.Application.ViewModels
 {
     public class ItemPedidoViewModel
     {
-        public Guid Id { get; set; }   
+        public Guid? Id { get; set; }   
 
-        public ProdutoViewModel Produto { get; set; }
+        public ProdutoViewModel? Produto { get; set; }
 
+        public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
 
         public decimal ValorSemDesconto { get; set; }
 
-        public decimal ValorTotal { get; set; }
+        public decimal? ValorTotal { get; set; }
 
     }
 }

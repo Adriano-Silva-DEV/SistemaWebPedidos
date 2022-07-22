@@ -30,5 +30,15 @@ namespace SistemaWebPedidos.Application.Services
             return _mapper.Map<EnderecoViewModel>(await _enderecoRepository.ObterPorId(id));
         }
 
+        public async Task<EnderecoViewModel> Editar(EnderecoViewModel endereco, Guid id)
+        {
+            var enderecoCliente = await _enderecoRepository.ObterPorId(id);
+            endereco.Id = enderecoCliente.Id;
+
+           await _enderecoRepository.Atualizar( _mapper.Map<Endereco>(endereco) );
+
+            return endereco;
+        }
+
     }
 }

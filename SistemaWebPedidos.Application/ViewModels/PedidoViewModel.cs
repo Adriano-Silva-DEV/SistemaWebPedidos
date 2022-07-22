@@ -26,5 +26,17 @@ namespace SistemaWebPedidos.Application.ViewModels
         public EnderecoViewModel EnderecoEntrega { get; set; }
 
         public String Status { get; set; }
+
+        public MeioPagamentoViewModel MeioPagamento { get; set; }
+
+        public Guid MeioPagamentoId { get; set; }
+
+        public double? Troco { get; set; }
+
+        public int QuantidadeParcela { get; set; }
+
+        public int NumeroPedido { get; set; }
+
+       public Pagination Pagination { get; set; }
     }
 }

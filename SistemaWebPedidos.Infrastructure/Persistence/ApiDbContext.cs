@@ -25,6 +25,8 @@ namespace SistemaWebPedidos.Infrastructure.Persistence
 
         public DbSet<Endereco> Enderecos { get; set;}
 
+        public DbSet<MeioPagamento> MeioPagamento { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApiDbContext).Assembly);

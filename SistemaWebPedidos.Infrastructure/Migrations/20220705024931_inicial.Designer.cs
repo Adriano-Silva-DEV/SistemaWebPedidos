@@ -12,8 +12,8 @@ using SistemaWebPedidos.Infrastructure.Persistence;
 namespace SistemaWebPedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20220429035905_2")]
-    partial class _2
+    [Migration("20220705024931_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,7 +103,7 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("PedidoId")
+                    b.Property<Guid>("PedidoId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("ProdutoId")
@@ -127,6 +127,32 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.ToTable("ItensPedidos");
                 });
 
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.MeioPagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NumMaxParcelamento")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("ValorMinParcela")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MEIO_PAGAMENTO", (string)null);
+                });
+
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,9 +160,12 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("EnderecoEntregaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MeioPagamentoId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Status")
@@ -152,7 +181,9 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
 
                     b.HasIndex("EnderecoEntregaId");
 
-                    b.ToTable("Pedidos");
+                    b.HasIndex("MeioPagamentoId");
+
+                    b.ToTable("PEDIDOS", (string)null);
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Produto", b =>
@@ -208,6 +239,9 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<DateTime>("dataCadastro")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
@@ -222,6 +256,12 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Cidade")
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Cnpj")
                         .HasColumnType("varchar(300)");
@@ -241,16 +281,22 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("EnderecoId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Estado")
+                        .HasColumnType("varchar(30)");
 
-                    b.Property<TimeOnly>("HorarioAbertura")
-                        .HasColumnType("time without time zone");
+                    b.Property<string>("HorarioAbertura")
+                        .HasColumnType("text");
 
-                    b.Property<TimeOnly>("HorarioFechamento")
-                        .HasColumnType("time without time zone");
+                    b.Property<string>("HorarioFechamento")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Imagem1")
+                        .HasColumnType("text");
 
                     b.Property<string>("NomeEstabelecimento")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Numero")
                         .HasColumnType("text");
 
                     b.Property<bool>("PessoaFisica")
@@ -259,19 +305,18 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("RazaoSocial")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Rua")
+                        .HasColumnType("varchar(200)");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasKey("Id");
 
                     b.ToTable("SOBRE", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("105decf7-6f5d-4532-854f-ed97ccad247a"),
+                            Id = new Guid("12273761-4d30-4af2-92ce-e27fc379d4c8"),
                             Descricao = "Escreve aqui a Descrição",
-                            HorarioAbertura = new TimeOnly(0, 0, 0),
-                            HorarioFechamento = new TimeOnly(0, 0, 0),
                             NomeEstabelecimento = "Nome do Estabelecimento",
                             PessoaFisica = false
                         });
@@ -286,7 +331,7 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<Guid>("EnderecoId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("IdEntity")
+                    b.Property<Guid>("IdIdentity")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Nome")
@@ -296,8 +341,8 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("Sobrenome")
                         .HasColumnType("text");
 
-                    b.Property<int>("Telefone")
-                        .HasColumnType("integer");
+                    b.Property<string>("Telefone")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -309,13 +354,16 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.ItemPedido", b =>
                 {
-                    b.HasOne("SistemaWebPedidos.Core.Entities.Pedido", null)
+                    b.HasOne("SistemaWebPedidos.Core.Entities.Pedido", "Pedido")
                         .WithMany("ItensPedido")
-                        .HasForeignKey("PedidoId");
+                        .HasForeignKey("PedidoId")
+                        .IsRequired();
 
                     b.HasOne("SistemaWebPedidos.Core.Entities.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId");
+
+                    b.Navigation("Pedido");
 
                     b.Navigation("Produto");
                 });
@@ -327,7 +375,14 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .HasForeignKey("EnderecoEntregaId")
                         .IsRequired();
 
+                    b.HasOne("SistemaWebPedidos.Core.Entities.MeioPagamento", "MeioPagamento")
+                        .WithMany("Pedido")
+                        .HasForeignKey("MeioPagamentoId")
+                        .IsRequired();
+
                     b.Navigation("EnderecoEntrega");
+
+                    b.Navigation("MeioPagamento");
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Produto", b =>
@@ -345,15 +400,6 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Navigation("Categoria");
 
                     b.Navigation("Fornecedor");
-                });
-
-            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Sobre", b =>
-                {
-                    b.HasOne("SistemaWebPedidos.Core.Entities.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId");
-
-                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Usuario", b =>
@@ -379,6 +425,11 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Fornecedor", b =>
                 {
                     b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.MeioPagamento", b =>
+                {
+                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Pedido", b =>

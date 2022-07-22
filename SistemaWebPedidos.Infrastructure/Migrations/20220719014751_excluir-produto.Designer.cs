@@ -12,8 +12,8 @@ using SistemaWebPedidos.Infrastructure.Persistence;
 namespace SistemaWebPedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20220515184551_img-logo")]
-    partial class imglogo
+    [Migration("20220719014751_excluir-produto")]
+    partial class excluirproduto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,10 +103,10 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("PedidoId")
+                    b.Property<Guid>("PedidoId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProdutoId")
+                    b.Property<Guid>("ProdutoId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantidade")
@@ -127,6 +127,61 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.ToTable("ItensPedidos");
                 });
 
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.MeioPagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NumMaxParcelamento")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("ValorMinParcela")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MEIO_PAGAMENTO", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("32abc88f-b734-404d-a23a-ff629ff69de7"),
+                            Ativo = true,
+                            Img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7MsT24vvFA5FqSn2vhmwjR3IFKLKZvekhOg&usqp=CAU",
+                            Nome = "Dinheiro ou Pix",
+                            NumMaxParcelamento = 1,
+                            ValorMinParcela = 999999999.0
+                        },
+                        new
+                        {
+                            Id = new Guid("849dc3be-f82e-41b8-aec9-1afa806edc1d"),
+                            Ativo = true,
+                            Img = "https://logosmarcas.net/wp-content/uploads/2020/09/MasterCard-Logo-1990-1996.png",
+                            Nome = "Cartão VISA",
+                            NumMaxParcelamento = 10,
+                            ValorMinParcela = 20.0
+                        },
+                        new
+                        {
+                            Id = new Guid("21aaa660-be61-43be-ba31-08b044ac04c1"),
+                            Ativo = true,
+                            Img = "https://w7.pngwing.com/pngs/371/4/png-transparent-visa-debit-card-credit-card-logo-mastercard-visa-text-trademark-logo.png",
+                            Nome = "Cartão Master",
+                            NumMaxParcelamento = 6,
+                            ValorMinParcela = 50.0
+                        });
+                });
+
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
@@ -139,8 +194,23 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<Guid>("EnderecoEntregaId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("MeioPagamentoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("NumeroPedido")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NumeroPedido"));
+
+                    b.Property<int>("QuantidadeParcela")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Status")
                         .HasColumnType("text");
+
+                    b.Property<double?>("Troco")
+                        .HasColumnType("double precision");
 
                     b.Property<Guid>("UsuarioId")
                         .HasColumnType("uuid");
@@ -152,7 +222,9 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
 
                     b.HasIndex("EnderecoEntregaId");
 
-                    b.ToTable("Pedidos");
+                    b.HasIndex("MeioPagamentoId");
+
+                    b.ToTable("PEDIDOS", (string)null);
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Produto", b =>
@@ -170,6 +242,9 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(2000)");
+
+                    b.Property<bool>("Excluido")
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("FornecedorId")
                         .HasColumnType("uuid");
@@ -284,7 +359,7 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ef2da361-f527-4ade-9d15-26149e5cdce8"),
+                            Id = new Guid("79b36436-bc03-45dc-853e-360cf45e8d89"),
                             Descricao = "Escreve aqui a Descrição",
                             NomeEstabelecimento = "Nome do Estabelecimento",
                             PessoaFisica = false
@@ -323,13 +398,17 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.ItemPedido", b =>
                 {
-                    b.HasOne("SistemaWebPedidos.Core.Entities.Pedido", null)
+                    b.HasOne("SistemaWebPedidos.Core.Entities.Pedido", "Pedido")
                         .WithMany("ItensPedido")
-                        .HasForeignKey("PedidoId");
+                        .HasForeignKey("PedidoId")
+                        .IsRequired();
 
                     b.HasOne("SistemaWebPedidos.Core.Entities.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId");
+                        .WithMany("ItemPedido")
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
 
                     b.Navigation("Produto");
                 });
@@ -341,7 +420,14 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                         .HasForeignKey("EnderecoEntregaId")
                         .IsRequired();
 
+                    b.HasOne("SistemaWebPedidos.Core.Entities.MeioPagamento", "MeioPagamento")
+                        .WithMany("Pedido")
+                        .HasForeignKey("MeioPagamentoId")
+                        .IsRequired();
+
                     b.Navigation("EnderecoEntrega");
+
+                    b.Navigation("MeioPagamento");
                 });
 
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Produto", b =>
@@ -386,9 +472,19 @@ namespace SistemaWebPedidos.Infrastructure.Migrations
                     b.Navigation("Produtos");
                 });
 
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.MeioPagamento", b =>
+                {
+                    b.Navigation("Pedido");
+                });
+
             modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Pedido", b =>
                 {
                     b.Navigation("ItensPedido");
+                });
+
+            modelBuilder.Entity("SistemaWebPedidos.Core.Entities.Produto", b =>
+                {
+                    b.Navigation("ItemPedido");
                 });
 #pragma warning restore 612, 618
         }

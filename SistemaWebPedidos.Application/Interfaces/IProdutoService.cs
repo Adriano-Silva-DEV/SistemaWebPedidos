@@ -15,11 +15,12 @@ namespace SistemaWebPedidos.Application.Interfaces
         public Task<IEnumerable<ProdutoViewModel>> Buscar(string id);
         public  Task<ProdutoViewModel> Salvar(ProdutoViewModel produtoViewModel);
         public Task<ProdutoViewModel> Atualizar(ProdutoViewModel produtViewModel);
-        public Task<IEnumerable<ProdutoViewModel>> ListarTodos();
+        public Task<List<ProdutoViewModel>> ListarTodos(int skip, int take);
         public Task Remover(ProdutoViewModel produtViewModel);
         public Task<ProdutoViewModel> ObterPorSku(String sku);
         public Task<List<ProdutoViewModel>> ObterPorFornecedor(Guid id);
         public Task<List<ProdutoViewModel>> ObterPorCategoria(Guid id);
+        public Task<int> TotalPedidos();
 
 
     }
