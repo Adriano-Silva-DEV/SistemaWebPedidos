@@ -126,7 +126,6 @@ namespace SistemaWebPedidos.Api.Controllers
             }
             if (result.IsLockedOut)
             {
-
                 NotificarErro("Este Usuário foi temporariamente bloqueado por tentatívas inválidas");
                 return CustomResponse(loginUsuario);
             }

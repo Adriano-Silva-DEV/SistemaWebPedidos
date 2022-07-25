@@ -79,8 +79,6 @@ namespace SistemaWebPedidos.Api.Controllers
         {
             if (!ModelState.IsValid || fornecedorViewModel is null)
                 return BadRequest(ModelState);
-
-
             try
             {
                 var fornecedor = await _fornecedorService.BuscarPorId(id);

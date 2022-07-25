@@ -30,10 +30,7 @@ namespace SistemaWebPedidos.Api.Controllers
 
             try
             {
-
                 var pedidoProcesado = await _pedidoService.Processar(pedido, _appUser.GetUserId());
-
-
                 return CustomResponse(pedidoProcesado);
             }
             catch
@@ -42,6 +39,8 @@ namespace SistemaWebPedidos.Api.Controllers
                 return CustomResponse();
             }
         }
+
+
         [Authorize]
         [HttpGet]
         [Route("{id}")]
