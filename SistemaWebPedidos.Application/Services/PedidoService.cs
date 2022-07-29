@@ -15,7 +15,9 @@ namespace SistemaWebPedidos.Application.Services
 {
     public class PedidoService : IPedidoService
     {
-        private readonly IMapper _mapper; 
+   
+
+        private readonly IMapper _mapper;
 
         private readonly IPedidoRepository _pedidoRepository;
 
@@ -23,8 +25,7 @@ namespace SistemaWebPedidos.Application.Services
 
         private readonly IProdutoRepository _produtoRepository;
 
-        public PedidoService(IProdutoRepository produdoRepository,
-            IEnderecoService enderecoService, IMapper mapper, IPedidoRepository pedidoRepository)
+        public PedidoService(IProdutoRepository produdoRepository, IEnderecoService enderecoService, IMapper mapper, IPedidoRepository pedidoRepository)
         {
             _mapper = mapper;
             _pedidoRepository = pedidoRepository;
@@ -32,21 +33,22 @@ namespace SistemaWebPedidos.Application.Services
             _produtoRepository = produdoRepository;
         }
 
-        public async Task<PedidoViewModel> Processar(PedidoViewModel pedido, Guid userId)
+      public  async Task<PedidoViewModel>  Processar(PedidoViewModel pedido, Guid userId)
         {
-            pedido.EnderecoEntregaId = (await _enderecoService.ObterPorId(userId)).Id;
-            pedido.UsuarioId = userId;
-            pedido.DataCriacao = DateTime.Now;
+          pedido.EnderecoEntregaId =  (await _enderecoService.ObterPorId(userId)).Id;           
+          pedido.UsuarioId = userId;
+          pedido.DataCriacao = DateTime.Now;
             pedido.Status = "Em processamento";
 
 
-            foreach (var item in pedido.ItensPedido)
-            {
-                var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
-                pedido.ValorTotal = pedido.ValorTotal + (item.Quantidade * produto.PrecoVenda);
+           foreach ( var item in pedido.ItensPedido ){
+              var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
+               pedido.ValorTotal = pedido.ValorTotal + ( item.Quantidade * produto.PrecoVenda);
             }
 
+
             Pedido result = await _pedidoRepository.Adcionar(_mapper.Map<Pedido>(pedido));
+                
 
             return _mapper.Map<PedidoViewModel>(result);
         }
@@ -62,13 +64,22 @@ namespace SistemaWebPedidos.Application.Services
 
         }
 
-        public async Task<PedidoViewModel> GetId(int id, Guid userId)
+        public  async Task<PedidoViewModel> GetId(int id, Guid userId)
+        {
+   
+           Pedido result = await _pedidoRepository.ObterPorIdComItensPedidoEEndereco(id,userId);
+            
+            return _mapper.Map<PedidoViewModel>(result);
+        }
+
+        public async Task<PedidoViewModel> GetId(int id)
         {
 
-            Pedido result = await _pedidoRepository.ObterPorIdComItensPedidoEEndereco(id, userId);
+            Pedido result = await _pedidoRepository.ObterPorIdComItensPedidoEEndereco(id);
 
             return _mapper.Map<PedidoViewModel>(result);
         }
+
 
         public async Task<List<PedidoViewModel>> GetUserId(Guid id)
         {
@@ -89,12 +100,12 @@ namespace SistemaWebPedidos.Application.Services
 
         public async Task<int> TotalPedidos()
         {
-            return await _pedidoRepository.TotalPedidos();
+           return await _pedidoRepository.TotalPedidos();
         }
 
         public async Task<int> TotalPedidosUsuarioId(Guid id)
         {
-            return await _pedidoRepository.TotalPedidosUsuarioId(id);
+           return  await _pedidoRepository.TotalPedidosUsuarioId(id);
         }
 
         public async Task<List<PedidoViewModel>> EditStatus(Guid Id)

@@ -30,7 +30,27 @@ namespace SistemaWebPedidos.Api.Controllers
 
             try
             {
+
                 var pedidoProcesado = await _pedidoService.Processar(pedido, _appUser.GetUserId());
+
+
+                return CustomResponse(pedidoProcesado);
+            }
+            catch
+            {
+                NotificarErro("Ops! Ocorreu um erro");
+                return CustomResponse();
+            }
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+
+            try
+            {
+                var pedidoProcesado = await _pedidoService.GetId(id, _appUser.GetUserId());
                 return CustomResponse(pedidoProcesado);
             }
             catch
@@ -43,13 +63,13 @@ namespace SistemaWebPedidos.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [Route("adm/{id}")]
+        public async Task<IActionResult> GetAdm(int id)
         {
 
             try
             {
-                var pedidoProcesado = await _pedidoService.GetId(id, _appUser.GetUserId());
+                var pedidoProcesado = await _pedidoService.GetId(id);
                 return CustomResponse(pedidoProcesado);
             }
             catch

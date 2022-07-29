@@ -24,6 +24,14 @@ namespace SistemaWebPedidos.Infrastructure.Persistence.Repository
                 FirstOrDefaultAsync(p => p.NumeroPedido == id && p.UsuarioId == userId);
         }
 
+        public async Task<Pedido> ObterPorIdComItensPedidoEEndereco(int id)
+        {
+            return await _apiDbContext.Pedidos.AsNoTracking().
+                Include("ItensPedido.Produto").
+                Include(f => f.EnderecoEntrega).
+                Include(f => f.MeioPagamento).
+                FirstOrDefaultAsync(p => p.NumeroPedido == id);
+        }
         public async Task<Pedido> ObterPorIdComItensPedidoEEndereco(Guid id)
         {
             return await _apiDbContext.Pedidos.AsNoTracking().

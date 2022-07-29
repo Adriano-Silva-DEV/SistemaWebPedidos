@@ -8,9 +8,6 @@ namespace SistemaWebPedidos.Core.Entities
 {
     public class Endereco : Entity
     {
-
-
-
         public string Numero { get; set; }
 
         public string Rua { get; set; }

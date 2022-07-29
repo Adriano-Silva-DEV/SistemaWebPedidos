@@ -11,7 +11,8 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
                 builder.HasKey(p => p.Id);
 
             builder.Property(p => p.NumeroPedido)
-                  .ValueGeneratedOnAdd();        
+                  .ValueGeneratedOnAdd();
+                
 
             builder.HasOne(p => p.MeioPagamento)
                           .WithMany(f => f.Pedido);

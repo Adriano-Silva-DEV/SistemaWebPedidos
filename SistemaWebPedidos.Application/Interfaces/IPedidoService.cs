@@ -15,6 +15,8 @@ namespace SistemaWebPedidos.Application.Interfaces
 
        Task<PedidoViewModel> GetId(int Id, Guid userId);
 
+        Task<PedidoViewModel> GetId(int Id);
+
         Task<List<PedidoViewModel>> GetUserId(Guid Id);
 
         Task<List<PedidoViewModel>> GetAll(int skip, int take);

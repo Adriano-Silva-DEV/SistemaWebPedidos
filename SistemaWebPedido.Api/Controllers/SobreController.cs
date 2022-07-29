@@ -51,13 +51,14 @@ namespace SistemaWebPedidos.Api.Controllers
             if (!ModelState.IsValid || sobreViewModel is null) return CustomResponse(ModelState);
 
 
-            var imagemNome = Guid.NewGuid() + "_" + sobreViewModel.Imagem1;
-            if (!UploadArquivo(sobreViewModel.ImagemUpload, imagemNome))
-            {
-                return CustomResponse(sobreViewModel);
-            }
-
-            sobreViewModel.Imagem1 = imagemNome;
+            /* var imagemNome = Guid.NewGuid() + "_" + sobreViewModel.Imagem1;
+             if (!UploadArquivo(sobreViewModel.ImagemUpload, imagemNome))
+             {
+                 return CustomResponse(sobreViewModel);
+             }
+            */
+            var sobreOld = await _sobreService.Listar();
+            sobreViewModel.Imagem1 = sobreOld.Imagem1;
 
             try
             {

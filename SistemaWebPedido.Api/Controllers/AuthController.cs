@@ -126,6 +126,7 @@ namespace SistemaWebPedidos.Api.Controllers
             }
             if (result.IsLockedOut)
             {
+
                 NotificarErro("Este Usuário foi temporariamente bloqueado por tentatívas inválidas");
                 return CustomResponse(loginUsuario);
             }
@@ -157,6 +158,30 @@ namespace SistemaWebPedidos.Api.Controllers
                 return CustomResponse();
             }
        
+        }
+
+        [Authorize]
+        [HttpGet("dados-usuario/{id}")]
+        public async Task<IActionResult> GetDadosUsuario(Guid id)
+        {
+
+            try
+            {
+                var usuarioViewModel = new RegistroUsuarioViewModel
+                {
+                    Email = _appUser.GetUserEmail(),
+                    Usuario = await _usuarioService.ObterPorIdIdentity(id)
+                };
+
+                return CustomResponse(usuarioViewModel);
+            }
+            catch (Exception ex)
+            {
+                NotificarErro("Ops! Ocorreu um erro");
+                NotificarErro(ex.Message);
+                return CustomResponse();
+            }
+
         }
 
         private async Task<LoginResponseViewModel> GerarJsonTokenAsync(string email)

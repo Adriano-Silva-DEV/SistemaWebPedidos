@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SistemaWebPedidos.Core.Entities;
+using System;
 
 namespace SistemaWebPedidos.Infrastructure.Mappings
 {
@@ -36,10 +37,11 @@ namespace SistemaWebPedidos.Infrastructure.Mappings
             builder.HasData(
                 new Sobre
                 {
+                    Id = new Guid("ef2da361-f527-4ade-9d15-26149e5cdce8"),
                     NomeEstabelecimento = "Nome do Estabelecimento",
-                    Descricao = "Escreve aqui a Descrição"               
+                    Descricao = "Escreve aqui a Descrição"
                 }
-                ); 
+                ); ; 
             }
              
         }
